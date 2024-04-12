@@ -37,9 +37,9 @@ def calculate_balance(route, action_flag):
     for index in range(len(route)-1):
         next_token = "token" + route[index + 1]
         if previous_token > next_token:
-            reserve_b, reserve_a = liquidity_data[(next_token, previous_token)]
+            reserve_b, reserve_a = liquidity[(next_token, previous_token)]
         else:
-            reserve_a, reserve_b = liquidity_data[(previous_token, next_token)]
+            reserve_a, reserve_b = liquidity[(previous_token, next_token)]
         
         base_amount = (997 * base_amount * reserve_b) / (1000 * reserve_a + 997 * base_amount)
 
@@ -52,9 +52,9 @@ def calculate_balance(route, action_flag):
         previous_token = next_token
         
     if previous_token < "tokenB":
-        reserve_a, reserve_b = liquidity_data[(previous_token, "tokenB")]
+        reserve_a, reserve_b = liquidity[(previous_token, "tokenB")]
     else:
-        reserve_b, reserve_a = liquidity_data[("tokenB", previous_token)]
+        reserve_b, reserve_a = liquidity[("tokenB", previous_token)]
         
     base_amount = (997 * base_amount * reserve_b) / (1000 * reserve_a + 997 * base_amount)
     if action_flag:
